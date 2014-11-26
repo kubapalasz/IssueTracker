@@ -11,3 +11,4 @@ TestResults/
 */AutoTest.config.old
 packages/*
 IssueTrackerApi.sln.DotSettings.user
+_ReSharper.IssueTrackerApi/*
