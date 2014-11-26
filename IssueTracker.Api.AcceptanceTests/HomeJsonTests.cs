@@ -1,30 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
-using System.Web.Http.SelfHost;
-using NUnit.Framework;
+using Xunit;
 
 namespace IssueTracker.Api.AcceptanceTests
 {
     public class HomeJsonTests
     {
-        [Test]
+        [Fact]
         public void GetReturnsResponseWithCorrectStatusCode()
         {
-            var baseAddress = new Uri("http://localhost:9876");
-            var configuration = new HttpSelfHostConfiguration(baseAddress);
-            new Bootstrap().Configure(configuration);
-            var server = new HttpSelfHostServer(configuration);
-
-            using (var client = new HttpClient(server))
+            using (var client = HttpClientFactory.Create())
             {
-                client.BaseAddress = baseAddress;
-
                 var response = client.GetAsync("").Result;
 
-                Assert.That(response.IsSuccessStatusCode, Is.True);
+                Assert.True(
+                    response.IsSuccessStatusCode,
+                    "Actual status code: " + response.StatusCode);
+            }
+        }
+
+
+        [Fact]
+        public void PostEntrySucceeds()
+        {
+            using (var client = HttpClientFactory.Create())
+            {
+                var json = new
+                {
+                    time = DateTimeOffset.Now,
+                    distance = 8500,
+                    duration = TimeSpan.FromMinutes(44)
+                };
+
+                var response = client.PostAsJsonAsync("", json).Result;
+
+                Assert.True(
+                    response.IsSuccessStatusCode,
+                    "Actual status code: " + response.StatusCode);
             }
         }
     }
