@@ -82,7 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContentReader.cs" />
-    <Compile Include="HomeJsonTests.cs" />
+    <Compile Include="BoardJsonTests.cs" />
+    <Compile Include="IssueJsonTests.cs" />
     <Compile Include="HttpClientFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

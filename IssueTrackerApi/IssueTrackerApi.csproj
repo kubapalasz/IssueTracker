@@ -73,6 +73,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
+    <Compile Include="BoardController.cs" />
+    <Compile Include="FakeDatabase.cs" />
     <Compile Include="IssueController.cs" />
     <Compile Include="IssueModel.cs" />
     <Compile Include="IssuesModel.cs" />

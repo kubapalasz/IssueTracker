@@ -12,7 +12,7 @@ using Xunit.Extensions;
 
 namespace IssueTrackerApi.AcceptanceTests
 {
-    public class HomeJsonTests
+    public class IssueJsonTests
     {
         [Fact]
         public void GetReturnsResponseWithCorrectStatusCode()

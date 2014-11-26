@@ -10,19 +10,12 @@ using Simple.Data;
 
 namespace IssueTrackerApi
 {
-    public class IssueController : ApiController
+    public class BoardController : ApiController
     {
 
         public HttpResponseMessage Get()
         {
             return this.Request.CreateResponse(HttpStatusCode.OK, new IssuesModel { Issues = FakeDatabase.Issues.ToArray() });
-        }
-
-        public HttpResponseMessage Post(IssueModel issue)
-        {
-            FakeDatabase.Issues.Add(issue);
-
-            return this.Request.CreateResponse();
         }
     }
 }
