@@ -15,7 +15,8 @@ namespace IssueTrackerApi
 
         public HttpResponseMessage Get()
         {
-            return this.Request.CreateResponse(HttpStatusCode.OK, new IssuesModel { Issues = FakeDatabase.Issues.ToArray() });
+            return this.Request.CreateResponse(HttpStatusCode.OK,
+                new IssuesModel {Issues = FakeDatabase.Issues.OrderBy(_ => _.DueDate).ToArray()});
         }
     }
 }

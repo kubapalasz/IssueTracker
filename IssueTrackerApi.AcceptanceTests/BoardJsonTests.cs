@@ -28,7 +28,7 @@ namespace IssueTrackerApi.AcceptanceTests
         }
         
         [Fact]
-        public void AfterPostingIssuesGetOnBoardReturnsCorrectAmountOfIssues()
+        public void AfterPostingIssuesGetOnBoardReturnsCorrectAmountOfIssuesSortedByDate()
         {
             using (var client = HttpClientFactory.Create())
             {
@@ -62,6 +62,9 @@ namespace IssueTrackerApi.AcceptanceTests
                 Assert.NotNull(actual);
                 Assert.NotNull(actual.issues);
                 Assert.Equal(actual.issues.Count, 3);
+                Assert.Equal(actual.issues[0].title.Value, "First");
+                Assert.Equal(actual.issues[1].title.Value, "Middle");
+                Assert.Equal(actual.issues[2].title.Value, "Last");
             }
         }
     }
