@@ -1,3 +1,7 @@
 IssueTracker.v12.suo
 IssueTracker.Api.AcceptanceTests/bin/*
 IssueTracker.Api.AcceptanceTests/obj/*
+packages/*
+IssueTracker.Api/bin/*
+IssueTracker.Api/obj/*
+IssueTracker.sln.DotSettings.user
