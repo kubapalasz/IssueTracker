@@ -10,17 +10,19 @@ using Simple.Data;
 
 namespace IssueTrackerApi
 {
-    public class JournalController : ApiController
+    public class IssueController : ApiController
     {
-
+        private static readonly List<IssueModel> Issues = new List<IssueModel>();
 
         public HttpResponseMessage Get()
         {
-            return this.Request.CreateResponse();
+            return this.Request.CreateResponse(HttpStatusCode.OK, new IssuesModel {Issues = Issues.ToArray()});
         }
 
-        public HttpResponseMessage Post()
+        public HttpResponseMessage Post(IssueModel issue)
         {
+            Issues.Add(issue);
+
             return this.Request.CreateResponse();
         }
     }

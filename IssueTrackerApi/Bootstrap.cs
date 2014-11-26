@@ -1,4 +1,5 @@
 ﻿using System.Web.Http;
+using Newtonsoft.Json.Serialization;
 
 namespace IssueTrackerApi
 {
@@ -11,9 +12,12 @@ namespace IssueTrackerApi
                 routeTemplate: "{controller}/{id}",
                 defaults: new
                 {
-                    controller = "Journal",
+                    controller = "Issue",
                     id = RouteParameter.Optional
                 });
+
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver =
+                new CamelCasePropertyNamesContractResolver();
 
         }
     }

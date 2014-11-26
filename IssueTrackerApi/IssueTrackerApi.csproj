@@ -73,8 +73,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
-    <Compile Include="JournalController.cs" />
+    <Compile Include="IssueController.cs" />
+    <Compile Include="IssueModel.cs" />
+    <Compile Include="IssuesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Statuses.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
