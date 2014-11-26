@@ -7,7 +7,7 @@ namespace IssueTracker.Api
         public void Configure(HttpConfiguration configuration)
         {
             configuration.Routes.MapHttpRoute(
-                name: "Default API rout",
+                name: "API Default",
                 routeTemplate: "{controller}/{id}",
                 defaults: new
                 {
