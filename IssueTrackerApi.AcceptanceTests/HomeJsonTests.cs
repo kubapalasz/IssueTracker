@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Net.Http;
 using Xunit;
+using System.Net.Http;
 
-namespace IssueTracker.Api.AcceptanceTests
+
+namespace IssueTrackerApi.AcceptanceTests
 {
     public class HomeJsonTests
     {

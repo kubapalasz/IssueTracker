@@ -1,19 +1,20 @@
 ﻿using System.Web.Http;
 
-namespace IssueTracker.Api
+namespace IssueTrackerApi
 {
     public class Bootstrap
     {
-        public void Configure(HttpConfiguration configuration)
+        public void Configure(HttpConfiguration config)
         {
-            configuration.Routes.MapHttpRoute(
+            config.Routes.MapHttpRoute(
                 name: "API Default",
                 routeTemplate: "{controller}/{id}",
                 defaults: new
                 {
-                    controller = "Issue",
+                    controller = "Journal",
                     id = RouteParameter.Optional
                 });
+
         }
     }
 }

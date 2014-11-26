@@ -2,10 +2,12 @@
 using System.Net.Http;
 using System.Web.Http.SelfHost;
 
-namespace IssueTracker.Api.AcceptanceTests
+
+namespace IssueTrackerApi.AcceptanceTests
 {
     public class HttpClientFactory
     {
+
         public static HttpClient Create()
         {
             var baseAddress = new Uri("http://localhost:8765");
