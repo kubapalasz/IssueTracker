@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ProjectJsonTests.cs" />
     <Compile Include="ContentReader.cs" />
     <Compile Include="BoardJsonTests.cs" />
     <Compile Include="IssueJsonTests.cs" />
