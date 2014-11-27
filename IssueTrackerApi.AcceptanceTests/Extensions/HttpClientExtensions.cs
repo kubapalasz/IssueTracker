@@ -5,11 +5,11 @@ namespace IssueTrackerApi.AcceptanceTests.Extensions
 {
     public static class HttpClientExtensions
     {
-        public static dynamic CreateUniqueIssue(this HttpClient httpClient, object projectName)
+        public static dynamic CreateUniqueIssue(this HttpClient httpClient, object projectName, string title = "TDD Challange - check issue number setting")
         {
             var json = new
             {
-                title = "TDD Challange - check issue number setting",
+                title,
                 dueDate = DateTimeOffset.Now,
                 status = "Open",
                 projectName

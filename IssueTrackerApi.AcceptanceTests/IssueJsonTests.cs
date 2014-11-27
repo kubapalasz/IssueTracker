@@ -47,7 +47,7 @@ namespace IssueTrackerApi.AcceptanceTests
                 var issue = client.CreateUniqueIssue(project.Value("name"));
 
                 // Act
-                var url = "Issue/" + issue.number.Value;
+                var url = "Issue/Get/" + issue.number.Value;
                 var getResponse = client.GetAsync(url).Result;
                 var actualIssue = getResponse.Content.Value;
 
@@ -102,6 +102,47 @@ namespace IssueTrackerApi.AcceptanceTests
                 {
                     actualResponse.EnsureSuccessStatusCode();
                 });
+            }
+        }
+
+
+        [Fact]
+        public void SearchIssuesByTitlePart()
+        {
+            using (var client = HttpClientFactory.Create())
+            {
+                // Addange 
+                var project1 = client.CreateUniqueProject();
+                var project1Name = project1.Value("name");
+                var project2 = client.CreateUniqueProject();
+                var project2Name = project2.Value("name");
+                var project3 = client.CreateUniqueProject();
+                var project3Name = project3.Value("name");
+                client.CreateUniqueIssue(project1Name, "Begin TeDeDe End");
+                client.CreateUniqueIssue(project1Name, "' TeDeDe123321321 End");
+                client.CreateUniqueIssue(project2Name, "Begin End TeDeDe");
+                client.CreateUniqueIssue(project1Name, "Begin End No searched string");
+                client.CreateUniqueIssue(project3Name, "Nothing important");
+                client.CreateUniqueIssue(project3Name, "Nothing important than");
+                client.CreateUniqueIssue(project3Name, "123435435");
+
+                // Act
+                var response = client.GetAsync("Issue/GetByTitle/TeDeDe").Result;
+
+                // Assert
+                var actual = response.Content.ReadAsJsonAsync().Result;
+                var correctCount = 0;
+                foreach (var issue in actual.issues)
+                {
+                    if (issue.projectName != project1Name && issue.projectName != project2Name)
+                    {
+                        continue;
+                    }
+
+                    Assert.Contains("TeDeDe", issue.title.Value.ToString());
+                    correctCount++;
+                }
+                Assert.Equal(3, correctCount);
             }
         }
     }

@@ -18,6 +18,13 @@ namespace IssueTrackerApi
             return Request.CreateResponse(HttpStatusCode.OK, FakeDatabase.Issues.FirstOrDefault(_ => _.Number == id));
         }
 
+        public HttpResponseMessage GetByTitle(string id)
+        {
+            var result = FakeDatabase.Issues.Where(_ => _.Title.Contains(id)).ToArray();
+
+            return Request.CreateResponse(HttpStatusCode.OK, new IssuesModel { Issues = result });
+        }
+
         public HttpResponseMessage Post(IssueModel issue)
         {
             if (!FakeDatabase.Projects.Any(_ => _.Name == issue.ProjectName))
