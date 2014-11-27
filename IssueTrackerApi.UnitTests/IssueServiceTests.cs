@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Moq;
 using Xunit;
 
-namespace IssueTrackerApi
+namespace IssueTrackerApi.UnitTests
 {
     public class IssueServiceTests
     {
