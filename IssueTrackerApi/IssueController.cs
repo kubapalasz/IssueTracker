@@ -20,6 +20,11 @@ namespace IssueTrackerApi
 
         public HttpResponseMessage Post(IssueModel issue)
         {
+            if (!FakeDatabase.Projects.Any(_ => _.Name == issue.ProjectName))
+            {
+                return Request.CreateResponse(HttpStatusCode.Forbidden, issue);
+            }
+
             issue.Number = (FakeDatabase.Issues.Count + 1).ToString(CultureInfo.InvariantCulture);
 
             FakeDatabase.Issues.Add(issue);

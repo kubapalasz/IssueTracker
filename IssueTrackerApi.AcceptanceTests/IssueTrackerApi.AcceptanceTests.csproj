@@ -81,6 +81,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\AnnonymousTypeExtensions.cs" />
+    <Compile Include="Extensions\HttpClientExtensions.cs" />
     <Compile Include="ProjectJsonTests.cs" />
     <Compile Include="ContentReader.cs" />
     <Compile Include="BoardJsonTests.cs" />

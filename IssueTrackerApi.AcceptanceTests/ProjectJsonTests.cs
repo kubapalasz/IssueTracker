@@ -1,6 +1,6 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using System.Net.Http;
+using IssueTrackerApi.AcceptanceTests.Extensions;
 
 namespace IssueTrackerApi.AcceptanceTests
 {
@@ -25,11 +25,7 @@ namespace IssueTrackerApi.AcceptanceTests
             using (var client = HttpClientFactory.Create())
             {
                 // Arrange
-                var project = new
-                {
-                    name = "CBE",
-                    description = "Core Business En."
-                };
+                var project = client.CreateUniqueProject();
 
                 // Act
                 var response = client.PostAsJsonAsync("Project", project).Result;
@@ -39,7 +35,7 @@ namespace IssueTrackerApi.AcceptanceTests
                 Assert.NotNull(actual);
                 Assert.NotNull(actual.name);
                 Assert.NotNull(actual.name.Value);
-                Assert.Equal("CBE", actual.name.Value);
+                Assert.Equal(project.Value("name"), actual.name.Value);
             }
         }
 
@@ -49,14 +45,7 @@ namespace IssueTrackerApi.AcceptanceTests
             using (var client = HttpClientFactory.Create())
             {
                 // Arrange
-                var project = new
-                {
-                    name = "CBE" + DateTime.Now.Year + DateTime.Now.Month + DateTime.Now.Minute + DateTime.Now.Second +
-                           DateTime.Now.Millisecond,
-                    description = "Core Business En."
-                };
-                var response = client.PostAsJsonAsync("Project", project).Result;
-                response.EnsureSuccessStatusCode();
+                var project = client.CreateUniqueProject();
 
                 // Act
                 var actualResponse = client.PostAsJsonAsync("Project", project).Result;

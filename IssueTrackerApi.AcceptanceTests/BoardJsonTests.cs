@@ -1,4 +1,5 @@
 ﻿using System;
+using IssueTrackerApi.AcceptanceTests.Extensions;
 using Xunit;
 using System.Net.Http;
 
@@ -25,29 +26,18 @@ namespace IssueTrackerApi.AcceptanceTests
             using (var client = HttpClientFactory.Create())
             {
                 // Arrange
+                var project = client.CreateUniqueProject();
+                
                 var responseBefore = client.GetAsync("Board").Result;
                 var before = responseBefore.Content.ReadAsJsonAsync().Result;
                 var last = new
                 {
                     title = "Last",
                     dueDate = DateTimeOffset.Now,
-                    status = "Closed"
+                    status = "Closed",
+                    projectName = project.Value("name")
                 };
                 client.PostAsJsonAsync("", last).Wait();
-                var middle = new
-                {
-                    title = "Middle",
-                    dueDate = DateTimeOffset.Now.AddDays(-1),
-                    status = "Closed"
-                };
-                client.PostAsJsonAsync("", middle).Wait();
-                var first = new
-                {
-                    title = "First",
-                    dueDate = DateTimeOffset.Now.AddDays(-2),
-                    status = "Closed"
-                };
-                client.PostAsJsonAsync("", first).Wait();
 
                 // Arrange
                 var response = client.GetAsync("Board").Result;
@@ -56,7 +46,7 @@ namespace IssueTrackerApi.AcceptanceTests
                 // Assert
                 Assert.NotNull(actual);
                 Assert.NotNull(actual.issues);
-                Assert.True(before.issues.Count + 3 <= actual.issues.Count);
+                Assert.True(before.issues.Count + 1 <= actual.issues.Count);
                 var lastDueDate = DateTime.MinValue;
                 foreach (var issue in actual.issues)
                 {
