@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xunit;
-using System.Web.Http.SelfHost;
 using System.Net.Http;
-using System.Configuration;
-using Simple.Data;
-using System.Dynamic;
-using Xunit.Extensions;
 
 namespace IssueTrackerApi.AcceptanceTests
 {
@@ -32,6 +24,9 @@ namespace IssueTrackerApi.AcceptanceTests
         {
             using (var client = HttpClientFactory.Create())
             {
+                // Arrange
+                var responseBefore = client.GetAsync("Board").Result;
+                var before = responseBefore.Content.ReadAsJsonAsync().Result;
                 var last = new
                 {
                     title = "Last",
@@ -39,7 +34,6 @@ namespace IssueTrackerApi.AcceptanceTests
                     status = "Closed"
                 };
                 client.PostAsJsonAsync("", last).Wait();
-
                 var middle = new
                 {
                     title = "Middle",
@@ -47,7 +41,6 @@ namespace IssueTrackerApi.AcceptanceTests
                     status = "Closed"
                 };
                 client.PostAsJsonAsync("", middle).Wait();
-
                 var first = new
                 {
                     title = "First",
@@ -56,15 +49,22 @@ namespace IssueTrackerApi.AcceptanceTests
                 };
                 client.PostAsJsonAsync("", first).Wait();
 
+                // Arrange
                 var response = client.GetAsync("Board").Result;
-
                 var actual = response.Content.ReadAsJsonAsync().Result;
+
+                // Assert
                 Assert.NotNull(actual);
                 Assert.NotNull(actual.issues);
-                Assert.Equal(actual.issues.Count, 3);
-                Assert.Equal(actual.issues[0].title.Value, "First");
-                Assert.Equal(actual.issues[1].title.Value, "Middle");
-                Assert.Equal(actual.issues[2].title.Value, "Last");
+                Assert.True(before.issues.Count + 3 <= actual.issues.Count);
+                var lastDueDate = DateTime.MinValue;
+                foreach (var issue in actual.issues)
+                {
+                    if (lastDueDate > issue.dueDate.Value)
+                    {
+                        Assert.True(lastDueDate <= issue.dueDate.Value);
+                    }
+                }
             }
         }
     }

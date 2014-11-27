@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Xunit;
-using System.Web.Http.SelfHost;
 using System.Net.Http;
-using System.Configuration;
-using Simple.Data;
-using System.Dynamic;
-using Xunit.Extensions;
 
 namespace IssueTrackerApi.AcceptanceTests
 {
@@ -55,7 +47,7 @@ namespace IssueTrackerApi.AcceptanceTests
             {
                 var json = new
                 {
-                    title = "TDD Challange",
+                    title = "TDD Challange - check issue number setting",
                     dueDate = DateTimeOffset.Now,
                     status = "Open"
                 };
@@ -64,6 +56,42 @@ namespace IssueTrackerApi.AcceptanceTests
                 var actual = response.Content.ReadAsJsonAsync().Result;
 
                 Assert.NotNull(actual.number);
+                Assert.NotNull(actual.number.Value);
+            }
+        }
+
+        [Fact]
+        public void GetIssueByNumberSucceeds()
+        {
+            using (var client = HttpClientFactory.Create())
+            {
+                // Arrange
+                var title = "TDD Challange - check issue number setting";
+                var dueDate = DateTimeOffset.Now;
+                var status = "Open";
+                string number;
+
+                var json = new
+                {
+                    title,
+                    dueDate,
+                    status
+                };
+                var postResponse = client.PostAsJsonAsync("", json).Result;
+                var addedIssue = postResponse.Content.ReadAsJsonAsync().Result;
+                number = addedIssue.number;
+
+                // Act
+                var url = "Issue/" + addedIssue.number.Value;
+                var getResponse = client.GetAsync(url).Result;
+                var actualIssue = getResponse.Content.Value;
+
+                // Assert
+                Assert.NotNull(actualIssue);
+                Assert.Equal(actualIssue.Title, title);
+                Assert.Equal(actualIssue.DueDate, dueDate);
+                Assert.Equal(actualIssue.Status, status);
+                Assert.Equal(actualIssue.Number, number);
             }
         }
 
@@ -78,12 +106,14 @@ namespace IssueTrackerApi.AcceptanceTests
                     dueDate = DateTimeOffset.Now,
                     status = "Closed"
                 };
-                var expected = json.ToJObject();
-                client.PostAsJsonAsync("", json).Wait();
+                var postResponse = client.PostAsJsonAsync("", json).Result;
+                var expected = postResponse.Content.ReadAsJsonAsync().Result;
 
                 var response = client.GetAsync("").Result;
 
                 var actual = response.Content.ReadAsJsonAsync().Result;
+                Assert.NotNull(actual);
+                Assert.NotNull(actual.issues);
                 Assert.Contains(expected, actual.issues);
             }
         }
