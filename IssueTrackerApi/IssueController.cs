@@ -8,14 +8,16 @@ namespace IssueTrackerApi
 {
     public class IssueController : ApiController
     {
+        private readonly IIssueService _issueService = new IssueService(new IssueRepository());
+        
         public HttpResponseMessage Get()
         {
-            return this.Request.CreateResponse(HttpStatusCode.OK, new IssuesModel { Issues = FakeDatabase.Issues.ToArray() });
+            return Request.CreateResponse(HttpStatusCode.OK, new IssuesModel {Issues = _issueService.Get().ToArray()});
         }
 
         public HttpResponseMessage Get(string id)
         {
-            return Request.CreateResponse(HttpStatusCode.OK, FakeDatabase.Issues.FirstOrDefault(_ => _.Number == id));
+            return Request.CreateResponse(HttpStatusCode.OK, _issueService.GetByNumber(id));
         }
 
         public HttpResponseMessage GetByTitle(string id)

@@ -75,6 +75,10 @@
     <Compile Include="Bootstrap.cs" />
     <Compile Include="BoardController.cs" />
     <Compile Include="FakeDatabase.cs" />
+    <Compile Include="IIssueRepository.cs" />
+    <Compile Include="IIssueService.cs" />
+    <Compile Include="IssueRepository.cs" />
+    <Compile Include="IssueService.cs" />
     <Compile Include="ProjectModel.cs" />
     <Compile Include="ProjectController.cs" />
     <Compile Include="IssueController.cs" />

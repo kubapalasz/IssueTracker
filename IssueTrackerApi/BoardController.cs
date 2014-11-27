@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Net.Http;
 using System.Net;
 
@@ -7,11 +6,12 @@ namespace IssueTrackerApi
 {
     public class BoardController : ApiController
     {
+        private readonly IIssueService _issueService = new IssueService(new IssueRepository());
 
         public HttpResponseMessage Get()
         {
-            return this.Request.CreateResponse(HttpStatusCode.OK,
-                new IssuesModel {Issues = FakeDatabase.Issues.OrderBy(_ => _.DueDate).ToArray()});
+            return Request.CreateResponse(HttpStatusCode.OK,
+                new IssuesModel {Issues = _issueService.GetOrderedByDueDateAsc().ToArray()});
         }
     }
 }
