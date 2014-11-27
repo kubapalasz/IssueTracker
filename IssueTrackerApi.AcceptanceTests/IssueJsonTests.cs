@@ -27,9 +27,8 @@ namespace IssueTrackerApi.AcceptanceTests
             }
         }
 
-
         [Fact]
-        public void PostEntrySucceeds()
+        public void PostIssueSucceeds()
         {
             using (var client = HttpClientFactory.Create())
             {
@@ -48,7 +47,26 @@ namespace IssueTrackerApi.AcceptanceTests
                     "Actual status code: " + response.StatusCode);
             }
         }
-        
+
+        [Fact]
+        public void PostIssueSucceedsAndReturnsIssueNumber()
+        {
+            using (var client = HttpClientFactory.Create())
+            {
+                var json = new
+                {
+                    title = "TDD Challange",
+                    dueDate = DateTimeOffset.Now,
+                    status = "Open"
+                };
+
+                var response = client.PostAsJsonAsync("", json).Result;
+                var actual = response.Content.ReadAsJsonAsync().Result;
+
+                Assert.NotNull(actual.number);
+            }
+        }
+
         [Fact]
         public void AfterPostingEntryGetRootReturnsEntryInContent()
         {

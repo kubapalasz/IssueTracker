@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Globalization;
 using System.Web.Http;
 using System.Net.Http;
 using System.Net;
-using System.Configuration;
-using Simple.Data;
 
 namespace IssueTrackerApi
 {
@@ -20,9 +15,11 @@ namespace IssueTrackerApi
 
         public HttpResponseMessage Post(IssueModel issue)
         {
+            issue.Number = (FakeDatabase.Issues.Count + 1).ToString(CultureInfo.InvariantCulture);
+
             FakeDatabase.Issues.Add(issue);
 
-            return this.Request.CreateResponse();
+            return Request.CreateResponse(HttpStatusCode.OK, issue);
         }
     }
 }

@@ -7,5 +7,6 @@ namespace IssueTrackerApi
         public string Title { get; set; }
         public DateTime DueDate { get; set; }
         public string Status { get; set; }
+        public string Number { get; set; }
     }
 }
