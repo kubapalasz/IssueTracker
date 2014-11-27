@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 using System.Net.Http;
 using System.Net;
 
@@ -13,9 +14,15 @@ namespace IssueTrackerApi
 
         public HttpResponseMessage Post(ProjectModel project)
         {
-            FakeDatabase.Projects.Add(project);
+            var existingProject = FakeDatabase.Projects.FirstOrDefault(_ => _.Name == project.Name);
 
-            return Request.CreateResponse(HttpStatusCode.OK, project);
+            if (existingProject == null)
+            {
+                FakeDatabase.Projects.Add(project);
+                return Request.CreateResponse(HttpStatusCode.OK, project);
+                
+            }
+            return Request.CreateResponse(HttpStatusCode.Forbidden, project);
         }
     }
 }
