@@ -1,5 +1,6 @@
 ﻿using System;
 using IssueTrackerApi.AcceptanceTests.Extensions;
+using IssueTrackerApi.Core;
 using Xunit;
 using System.Net.Http;
 
@@ -55,7 +56,7 @@ namespace IssueTrackerApi.AcceptanceTests
                 Assert.NotNull(actualIssue);
                 Assert.Equal(actualIssue.Title, issue.title.Value);
                 Assert.Equal(actualIssue.DueDate, issue.dueDate.Value);
-                Assert.Equal(actualIssue.Status, issue.status.Value);
+                Assert.Equal((Statuses)actualIssue.Status, (Statuses)issue.status.Value);
                 Assert.Equal(actualIssue.Number, issue.number.Value);
             }
         }
@@ -74,9 +75,9 @@ namespace IssueTrackerApi.AcceptanceTests
 
                 // Assert
                 var actual = response.Content.ReadAsJsonAsync().Result;
-                Assert.NotNull(actual);
                 Assert.NotNull(actual.issues);
-                Assert.Contains(issue, actual.issues);
+                Assert.Contains(issue.ToString(), actual.issues.ToString());
+
             }
         }
 
@@ -134,7 +135,7 @@ namespace IssueTrackerApi.AcceptanceTests
                 var correctCount = 0;
                 foreach (var issue in actual.issues)
                 {
-                    if (issue.projectName != project1Name && issue.projectName != project2Name)
+                    if (issue.project.name != project1Name && issue.project.name != project2Name)
                     {
                         continue;
                     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using IssueTrackerApi.Core;
 
 namespace IssueTrackerApi.AcceptanceTests.Extensions
 {
@@ -12,7 +13,7 @@ namespace IssueTrackerApi.AcceptanceTests.Extensions
                 title,
                 dueDate = DateTimeOffset.Now,
                 status = "Open",
-                projectName
+                project = new Project {Name = projectName.ToString(), Description = "Description2"}
             };
 
             var response = httpClient.PostAsJsonAsync("", json).Result;

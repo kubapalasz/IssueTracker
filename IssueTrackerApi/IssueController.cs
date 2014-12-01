@@ -3,12 +3,15 @@ using System.Linq;
 using System.Web.Http;
 using System.Net.Http;
 using System.Net;
+using IssueTrackerApi.Core;
+using IssueTrackerApi.Core.Services;
+using IssueTrackerApi.Services;
 
 namespace IssueTrackerApi
 {
     public class IssueController : ApiController
     {
-        private readonly IIssueService _issueService = new IssueService(new IssueRepository());
+        private readonly IIssueService _issueService = new IssueService(new IssueRepository(), new UserRepository());
         
         public HttpResponseMessage Get()
         {
@@ -29,7 +32,7 @@ namespace IssueTrackerApi
 
         public HttpResponseMessage Post(IssueModel issue)
         {
-            if (!FakeDatabase.Projects.Any(_ => _.Name == issue.ProjectName))
+            if (FakeDatabase.Projects.All(_ => _.Name != issue.Project.Name))
             {
                 return Request.CreateResponse(HttpStatusCode.Forbidden, issue);
             }

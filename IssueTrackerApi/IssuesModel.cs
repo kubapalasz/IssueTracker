@@ -1,4 +1,6 @@
-﻿namespace IssueTrackerApi
+﻿using IssueTrackerApi.Core;
+
+namespace IssueTrackerApi
 {
     public class IssuesModel
     {

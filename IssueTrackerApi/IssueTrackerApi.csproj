@@ -74,20 +74,23 @@
   <ItemGroup>
     <Compile Include="Bootstrap.cs" />
     <Compile Include="BoardController.cs" />
-    <Compile Include="FakeDatabase.cs" />
-    <Compile Include="IIssueRepository.cs" />
-    <Compile Include="IIssueService.cs" />
-    <Compile Include="IssueRepository.cs" />
-    <Compile Include="IssueService.cs" />
-    <Compile Include="ProjectModel.cs" />
+    <Compile Include="IssuesModel.cs" />
     <Compile Include="ProjectController.cs" />
     <Compile Include="IssueController.cs" />
-    <Compile Include="IssueModel.cs" />
-    <Compile Include="IssuesModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IssueTrackerApi.Core\IssueTrackerApi.Core.csproj">
+      <Project>{767642f5-ceab-4a3a-96f2-ec4e1c0c82f3}</Project>
+      <Name>IssueTrackerApi.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IssueTrackerApi.Services\IssueTrackerApi.Services.csproj">
+      <Project>{3b5fb640-6e0b-492c-8de0-7020b1cc1831}</Project>
+      <Name>IssueTrackerApi.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

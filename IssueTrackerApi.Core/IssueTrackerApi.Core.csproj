@@ -4,14 +4,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5EC2B49E-716A-4193-978F-17C7B48841C2}</ProjectGuid>
+    <ProjectGuid>{767642F5-CEAB-4A3A-96F2-EC4E1C0C82F3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IssueTrackerApi.UnitTests</RootNamespace>
-    <AssemblyName>IssueTrackerApi.UnitTests</AssemblyName>
+    <RootNamespace>IssueTrackerApi.Core</RootNamespace>
+    <AssemblyName>IssueTrackerApi.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,7 +20,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,12 +28,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Moq">
-      <HintPath>..\packages\Moq.4.2.1409.1722\lib\net40\Moq.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,33 +37,16 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit">
-      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
-    </Reference>
-    <Reference Include="xunit.extensions">
-      <HintPath>..\packages\xunit.extensions.1.9.1\lib\net20\xunit.extensions.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IssueServiceTests.cs" />
+    <Compile Include="IssueModel.cs" />
+    <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\IssueTrackerApi.Core\IssueTrackerApi.Core.csproj">
-      <Project>{767642f5-ceab-4a3a-96f2-ec4e1c0c82f3}</Project>
-      <Name>IssueTrackerApi.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IssueTrackerApi.Services\IssueTrackerApi.Services.csproj">
-      <Project>{3b5fb640-6e0b-492c-8de0-7020b1cc1831}</Project>
-      <Name>IssueTrackerApi.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IssueTrackerApi\IssueTrackerApi.csproj">
-      <Project>{26ff19aa-b9e9-4f0b-919d-475d1abf3ab7}</Project>
-      <Name>IssueTrackerApi</Name>
-    </ProjectReference>
+    <Compile Include="Services\IIssueRepository.cs" />
+    <Compile Include="Services\IIssueService.cs" />
+    <Compile Include="Services\IUserRepository.cs" />
+    <Compile Include="Statuses.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

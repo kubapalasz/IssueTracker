@@ -1,5 +1,6 @@
 ﻿using System;
 using IssueTrackerApi.AcceptanceTests.Extensions;
+using IssueTrackerApi.Core;
 using Xunit;
 using System.Net.Http;
 
@@ -35,7 +36,7 @@ namespace IssueTrackerApi.AcceptanceTests
                     title = "Last",
                     dueDate = DateTimeOffset.Now,
                     status = "Closed",
-                    projectName = project.Value("name")
+                    project = new Project {Name = project.Value("name").ToString()}
                 };
                 client.PostAsJsonAsync("", last).Wait();
 

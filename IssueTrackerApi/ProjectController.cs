@@ -2,6 +2,8 @@
 using System.Web.Http;
 using System.Net.Http;
 using System.Net;
+using IssueTrackerApi.Core;
+using IssueTrackerApi.Services;
 
 namespace IssueTrackerApi
 {
@@ -12,7 +14,7 @@ namespace IssueTrackerApi
             return this.Request.CreateResponse(HttpStatusCode.OK, new IssuesModel { Issues = FakeDatabase.Issues.ToArray() });
         }
 
-        public HttpResponseMessage Post(ProjectModel project)
+        public HttpResponseMessage Post(Project project)
         {
             var existingProject = FakeDatabase.Projects.FirstOrDefault(_ => _.Name == project.Name);
 
