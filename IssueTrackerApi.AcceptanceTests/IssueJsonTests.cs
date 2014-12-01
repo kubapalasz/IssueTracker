@@ -76,8 +76,21 @@ namespace IssueTrackerApi.AcceptanceTests
                 // Assert
                 var actual = response.Content.ReadAsJsonAsync().Result;
                 Assert.NotNull(actual.issues);
-                Assert.Contains(issue.ToString(), actual.issues.ToString());
 
+                var passed = false;
+
+                foreach (var actualIssue in actual.issues)
+                {
+                    if (issue.ToString() != actualIssue.ToString())
+                    {
+                        continue;
+                    }
+
+                    passed = true;
+                    break;
+                }
+
+                Assert.True(passed);
             }
         }
 
