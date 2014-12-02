@@ -3,5 +3,7 @@
     public interface IUserRepository
     {
         User GetByLogin(string userLogin);
+
+        void Save(User user);
     }
 }

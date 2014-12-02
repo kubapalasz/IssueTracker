@@ -9,5 +9,10 @@ namespace IssueTrackerApi.Services
         {
             throw new System.NotImplementedException();
         }
+
+        public void Save(User user)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
