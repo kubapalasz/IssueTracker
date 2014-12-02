@@ -6,6 +6,6 @@ namespace IssueTrackerApi.Core.Services
     {
         List<IssueModel> Get();
 
-        void Save(IssueModel issueModel);
+        long Save(IssueModel issueModel);
     }
 }

@@ -12,7 +12,7 @@ namespace IssueTrackerApi.Services
             return FakeDatabase.Issues;
         }
 
-        public void Save(IssueModel issueModel)
+        public long Save(IssueModel issueModel)
         {
             using (IRedisClient client = new RedisClient())
             {
@@ -21,6 +21,8 @@ namespace IssueTrackerApi.Services
                 issueModel.Id = issueClient.GetNextSequence();
 
                 issueClient.Store(issueModel);
+
+                return issueModel.Id;
             }
         }
     }
