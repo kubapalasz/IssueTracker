@@ -24,7 +24,8 @@ namespace IssueTrackerApi
 
         public HttpResponseMessage GetByTitle(string id)
         {
-            var result = _issueService.Get().Where(_ => _.Title.Contains(id)).ToArray();
+            var result =
+                _issueService.Get().Where(_ => !string.IsNullOrEmpty(_.Title) && _.Title.Contains(id)).ToArray();
 
             return Request.CreateResponse(HttpStatusCode.OK, new IssuesModel { Issues = result });
         }
