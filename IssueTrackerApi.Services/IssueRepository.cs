@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using IssueTrackerApi.Core;
 using IssueTrackerApi.Core.Services;
 using ServiceStack.Redis;
@@ -9,7 +10,12 @@ namespace IssueTrackerApi.Services
     {
         public List<IssueModel> Get()
         {
-            return FakeDatabase.Issues;
+            using (IRedisClient client = new RedisClient())
+            {
+                var issueClient = client.GetTypedClient<IssueModel>();
+
+                return issueClient.GetAll().ToList();
+            }
         }
 
         public long Save(IssueModel issueModel)
