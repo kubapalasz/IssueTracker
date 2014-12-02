@@ -18,8 +18,9 @@ namespace IssueTrackerApi.UnitTests
             var issueRepoMoq = new Mock<IIssueRepository>();
             issueRepoMoq.Setup(_ => _.Get()).Returns(new List<IssueModel> {new IssueModel()});
             var userRepoMock = new Mock<IUserRepository>();
+            var projectRepoMock = new Mock<IProjectRepository>();
 
-            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object);
+            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object, projectRepoMock.Object);
 
             // Act
             var issues = iIssueService.Get();
@@ -36,7 +37,8 @@ namespace IssueTrackerApi.UnitTests
             var issueRepoMoq = new Mock<IIssueRepository>();
             issueRepoMoq.Setup(_ => _.Get()).Returns(new List<IssueModel> {new IssueModel()});
             var userRepoMock = new Mock<IUserRepository>();
-            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object);
+            var projectRepoMock = new Mock<IProjectRepository>();
+            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object, projectRepoMock.Object);
 
             // Act
             var issues = iIssueService.Get(1, 1);
@@ -54,7 +56,8 @@ namespace IssueTrackerApi.UnitTests
             issueRepoMoq.Setup(_ => _.Get())
                 .Returns(new List<IssueModel> {new IssueModel(), new IssueModel(), new IssueModel(), new IssueModel()});
             var userRepoMock = new Mock<IUserRepository>();
-            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object);
+            var projectRepoMock = new Mock<IProjectRepository>();
+            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object, projectRepoMock.Object);
 
             // Act
             var issues = iIssueService.Get(2, 2);
@@ -79,7 +82,8 @@ namespace IssueTrackerApi.UnitTests
                     new IssueModel {Project = new Project {Name = "TestName3"}}
                 });
             var userRepoMock = new Mock<IUserRepository>();
-            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object);
+            var projectRepoMock = new Mock<IProjectRepository>();
+            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object, projectRepoMock.Object);
 
             // Act
             var issues = iIssueService.GetByName(projectName);
@@ -100,9 +104,10 @@ namespace IssueTrackerApi.UnitTests
             };
             var issueRepoMoq = new Mock<IIssueRepository>();
             var userRepoMock = new Mock<IUserRepository>();
+            var projectRepoMock = new Mock<IProjectRepository>();
 
             userRepoMock.Setup(_ => _.GetByLogin(userLogin)).Returns(new User{Login = userLogin});
-            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object);
+            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object, projectRepoMock.Object);
 
 
             // Act
@@ -126,10 +131,11 @@ namespace IssueTrackerApi.UnitTests
             };
             var issueRepoMoq = new Mock<IIssueRepository>();
             var userRepoMock = new Mock<IUserRepository>();
+            var projectRepoMock = new Mock<IProjectRepository>();
 
             userRepoMock.Setup(_ => _.GetByLogin(userLogin)).Returns((User)null);
 
-            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object);
+            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object, projectRepoMock.Object);
 
 
             // Act
@@ -139,8 +145,43 @@ namespace IssueTrackerApi.UnitTests
             // Assert
             Assert.Equal(exceptionMessage, ex.Message);
             issueRepoMoq.Verify(m => m.Save(It.IsAny<IssueModel>()), Times.Never());
+        }
 
+        [Fact]
+        public void TryAddIssueFaileWhenThereIsNoProject()
+        {
+            // Arrange
+            var issueRepoMoq = new Mock<IIssueRepository>();
+            var userRepoMock = new Mock<IUserRepository>();
+            var projectRepoMock = new Mock<IProjectRepository>();
+            const string projectName = "Test";
+            projectRepoMock.Setup(_ => _.GetAll()).Returns(() => new List<Project> { new Project { Name = "Test-Other" } });
+            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object, projectRepoMock.Object);
 
+            // Act
+            var result = iIssueService.TryAddIssue(new IssueModel {Project = new Project {Name = projectName}});
+
+            // Assert
+            Assert.True(result == 0);
+        }
+
+        [Fact]
+        public void TryAddIssueSucceedsThanksToExistingProjectName()
+        {
+            // Arrange
+            var issueRepoMoq = new Mock<IIssueRepository>();
+            var userRepoMock = new Mock<IUserRepository>();
+            var projectRepoMock = new Mock<IProjectRepository>();
+            const string projectName = "Test";
+            projectRepoMock.Setup(_ => _.GetAll()).Returns(() => new List<Project> { new Project { Name = projectName } });
+            issueRepoMoq.Setup(_ => _.Get()).Returns(() => new List<IssueModel>());
+            var iIssueService = new IssueService(issueRepoMoq.Object, userRepoMock.Object, projectRepoMock.Object);
+
+            // Act
+            var result = iIssueService.TryAddIssue(new IssueModel { Project = new Project { Name = projectName } });
+
+            // Assert
+            Assert.True(result == 0);
         }
 
     }

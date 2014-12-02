@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using IssueTrackerApi.Core;
 using IssueTrackerApi.Core.Services;
@@ -10,11 +11,15 @@ namespace IssueTrackerApi.Services
     {
         public IIssueRepository _issueRepository { get; set; }
         public IUserRepository _userRepository { get; set; }
+        public IProjectRepository _projectRepository { get; set; }
 
-        public IssueService(IIssueRepository issueRepository, IUserRepository userRepository)
+        public IssueService(IIssueRepository issueRepository,
+            IUserRepository userRepository,
+            IProjectRepository projectRepository)
         {
             _issueRepository = issueRepository;
             _userRepository = userRepository;
+            _projectRepository = projectRepository;
         }
 
         public List<IssueModel> Get()
@@ -37,6 +42,20 @@ namespace IssueTrackerApi.Services
         {
             var all = Get();
             return all.FirstOrDefault(_ => _.Number == id);
+        }
+
+        public long TryAddIssue(IssueModel issueModel)
+        {
+            if (_projectRepository.GetAll().All(_ => _.Name != issueModel.Project.Name))
+            {
+                return 0;
+            }
+
+            issueModel.Number = (_issueRepository.Get().Count + 1).ToString(CultureInfo.InvariantCulture);
+
+            var issueId = _issueRepository.Save(issueModel);
+
+            return issueId;
         }
 
         public IEnumerable<IssueModel> GetByName(string projectName)
