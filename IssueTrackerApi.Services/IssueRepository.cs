@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using IssueTrackerApi.Core;
 using IssueTrackerApi.Core.Services;
+using ServiceStack.Redis;
 
 namespace IssueTrackerApi.Services
 {
@@ -13,7 +14,14 @@ namespace IssueTrackerApi.Services
 
         public void Save(IssueModel issueModel)
         {
-            throw new System.NotImplementedException();
+            using (IRedisClient client = new RedisClient())
+            {
+                var issueClient = client.GetTypedClient<IssueModel>();
+
+                issueModel.Id = issueClient.GetNextSequence();
+
+                issueClient.Store(issueModel);
+            }
         }
     }
 }

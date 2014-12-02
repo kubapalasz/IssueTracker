@@ -4,8 +4,8 @@ namespace IssueTrackerApi.Core
 {
     public class IssueModel
     {
+        public long Id { get; set; }
         public string Title { get; set; }
-
         public string Description { get; set; }
         public DateTime DueDate { get; set; }
         public Statuses Status { get; set; }
