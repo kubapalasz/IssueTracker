@@ -13,7 +13,7 @@ namespace IssueTrackerApi.Services.Integration.Tests
         {
             // Arrange
             IUserRepository userRepository = new UserRepository();
-            var login = "testLogin@home.pl" + DateTime.Now.ToLongTimeString();
+            var login = "testLogin@home.pl" + DateTime.Now.ToLongTimeString() + DateTime.Now.Millisecond;
             var user = new User {Login = login};
 
             // Act
@@ -30,7 +30,7 @@ namespace IssueTrackerApi.Services.Integration.Tests
         {
             // Arrange
             IUserRepository userRepository = new UserRepository();
-            var login = "testLogin@home.pl" + DateTime.Now.ToLongTimeString();
+            var login = "testLogin@home.pl" + DateTime.Now.ToLongTimeString() + DateTime.Now.Millisecond;
             var user = new User { Login = login };
             var name = "Jan Kowalski";
             var pass = "polska";
