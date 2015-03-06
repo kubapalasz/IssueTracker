@@ -13,3 +13,4 @@ packages/*
 IssueTrackerApi.sln.DotSettings.user
 _ReSharper.IssueTrackerApi/*
 ExternalTools/Redis/heap/*
+ExternalTools/Redis/dump.rdb
