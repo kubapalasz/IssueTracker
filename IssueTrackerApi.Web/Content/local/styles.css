@@ -1,0 +1,50 @@
+.page-header {
+    background: white;
+    border-bottom: 1px solid #ccc;
+}
+
+.wrapper {
+    margin: 0 auto;
+    padding: 1.07143em; /* 15px */
+}
+
+.page-header .wrapper {
+    max-width: 102.85714em; /*1440px*/
+}
+
+.page-header .right.menu {
+    margin-top: 5px;
+}
+
+/* New user segment */
+.ui.segment.pg-borderless {
+    box-shadow: none;
+}
+
+
+/* Personal Styles for sortable issue list table footer content */
+.pg-description {
+    color: #777;
+    font-size: 18px;
+}
+
+.pg-pagination {
+    position: relative;
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .pg-pagination-info {
+        position: absolute;
+        right: 0px;
+        top: 7px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .pg-pagination-info {
+	    padding: 15px 0 5px;
+    }
+}
+
+

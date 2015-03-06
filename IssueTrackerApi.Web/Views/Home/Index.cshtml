@@ -1,45 +1,226 @@
-﻿@{
-    ViewBag.Title = "Home Page";
-}
-@section featured {
-    <section class="featured">
-        <div class="content-wrapper">
-            <hgroup class="title">
-                <h1>@ViewBag.Title.</h1>
-                <h2>@ViewBag.Message</h2>
-            </hgroup>
-            <p>
-                To learn more about ASP.NET MVC visit
-                <a href="http://asp.net/mvc" title="ASP.NET MVC Website">http://asp.net/mvc</a>.
-                The page features <mark>videos, tutorials, and samples</mark> to help you get the most from ASP.NET MVC.
-                If you have any questions about ASP.NET MVC visit
-                <a href="http://forums.asp.net/1146.aspx/1?MVC" title="ASP.NET MVC Forum">our forums</a>.
-            </p>
+﻿<main>
+    <div class="wrapper">
+        <div class="ui page grid">
+            <div class="one column row">
+                <div class="column">
+                    <h1 class="pg-title">Dashboard <span class="pg-description">&mdash; list of all issues</span></h1>
+                </div>
+                <div class="column">
+                    <div class="ui stacked segment">
+                        <div class="ui form">
+                            <div class="three fields">
+                                <div class="field">
+                                    <label>Search all issues:</label>
+                                    <div class="ui icon search input">
+                                        <i class="search icon"></i>
+                                        <input type="text" name="search" placeholder="Search issues...">
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Filter issues by status:</label>
+                                    <div class="ui fluid floating dropdown labeled icon button">
+                                        <input type="hidden" name="IssuesFilter" value="All">
+                                        <i class="filter icon"></i>
+                                        <span class="text">Filter Issues</span>
+                                        <div class="menu">
+                                            <div class="header">
+                                                <i class="tags icon"></i>
+                                                Status
+                                            </div>
+                                            <div class="item" data-value="Open">
+                                                <div class="ui green empty circular label"></div>
+                                                Open
+                                            </div>
+                                            <div class="item" data-value="Progress">
+                                                <div class="ui blue empty circular label"></div>
+                                                In Progress
+                                            </div>
+                                            <div class="item" data-value="Closed">
+                                                <div class="ui red empty circular label"></div>
+                                                Closed
+                                            </div>
+                                            <div class="item" data-value="All">
+                                                <div class="ui black empty circular label"></div>
+                                                All
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Filter issues by project:</label>
+                                    <select class="ui dropdown">
+                                        <option value="" selected>Filter by Project</option>
+                                        <option value="Project 1">Project 1</option>
+                                        <option value="Project 2">Project 2</option>
+                                        <option value="Project 3">Project 3</option>
+                                        <option value="Project 4">Project 4</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="ui celled sortable table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Summary</th>
+                                    <th>Created By</th>
+                                    <th>Assigned To</th>
+                                    <th>Due Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-sort-value="1" class="collapsing">1</td>
+                                    <td><a href="">Curabitur fermentum ac lorem ut ullamcorper</a></td>
+                                    <td>Joe Bloggs</td>
+                                    <td>Mary Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td class="positive">Closed</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="2" class="collapsing">2</td>
+                                    <td><a href="">Vestibulum sagittis mi a purus laoreet fringilla phasellus</a></td>
+                                    <td>Joe Bloggs</td>
+                                    <td>John Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td class="warning">In Progress</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="3" class="collapsing">3</td>
+                                    <td><a href="">Cum sociis natoque penatibus et magnis dis parturient montes</a></td>
+                                    <td>Mary Doe</td>
+                                    <td>John Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td>Open</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="4" class="collapsing">4</td>
+                                    <td><a href="">Curabitur fermentum ac lorem ut ullamcorper</a></td>
+                                    <td>Joe Bloggs</td>
+                                    <td>Mary Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td class="positive">Closed</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="5" class="collapsing">5</td>
+                                    <td><a href="">Vestibulum sagittis mi a purus laoreet fringilla hasellus cursus</a></td>
+                                    <td>Joe Bloggs</td>
+                                    <td>John Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td class="warning">In Progress</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="6" class="collapsing">6</td>
+                                    <td><a href="">Cum sociis natoque penatibus et magnis dis parturient montes</a></td>
+                                    <td>Mary Doe</td>
+                                    <td>John Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td>Open</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="7" class="collapsing">7</td>
+                                    <td><a href="">Curabitur fermentum ac lorem ut ullamcorper</a></td>
+                                    <td>Joe Bloggs</td>
+                                    <td>Mary Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td class="positive">Closed</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="8" class="collapsing">8</td>
+                                    <td><a href="">Vestibulum sagittis mi a purus laoreet fringilla phasellus cursus</a></td>
+                                    <td>Joe Bloggs</td>
+                                    <td>John Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td class="warning">In Progress</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="9" class="collapsing">9</td>
+                                    <td><a href="">Cum sociis natoque penatibus et magnis dis parturient montes</a></td>
+                                    <td>Mary Doe</td>
+                                    <td>John Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td>Open</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="10" class="collapsing">10</td>
+                                    <td><a href="">Curabitur fermentum ac lorem ut ullamcorper</a></td>
+                                    <td>Joe Bloggs</td>
+                                    <td>Mary Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td class="positive">Closed</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="11" class="collapsing">11</td>
+                                    <td><a href="">Vestibulum sagittis mi a purus laoreet fringilla phasellus cursus</a></td>
+                                    <td>Joe Bloggs</td>
+                                    <td>John Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td class="warning">In Progress</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="12" class="collapsing">12</td>
+                                    <td><a href="">Cum sociis natoque penatibus et magnis dis parturient montes</a></td>
+                                    <td>Mary Doe</td>
+                                    <td>John Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td>Open</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="13" class="collapsing">13</td>
+                                    <td><a href="">Curabitur fermentum ac lorem ut ullamcorper</a></td>
+                                    <td>Joe Bloggs</td>
+                                    <td>Mary Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td class="positive">Closed</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="14" class="collapsing">14</td>
+                                    <td><a href="">Vestibulum sagittis mi a purus laoreet fringilla phasellus cursus</a></td>
+                                    <td>Joe Bloggs</td>
+                                    <td>John Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td class="warning">In Progress</td>
+                                </tr>
+                                <tr>
+                                    <td data-sort-value="15" class="collapsing">15</td>
+                                    <td><a href="">Cum sociis natoque penatibus et magnis dis parturient montes</a></td>
+                                    <td>Mary Doe</td>
+                                    <td>John Doe</td>
+                                    <td>02/01/2015</td>
+                                    <td>Open</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="6">
+                                        <div class="pg-pagination">
+                                            <div class="ui pagination menu">
+                                                <a class="icon item">
+                                                    <i class="left arrow icon"></i>
+                                                </a>
+                                                <a class="active item">1</a>
+                                                <a class="item">2</a>
+                                                <a class="item">3</a>
+                                                <div class="disabled item">
+                                                    ...
+                                                </div>
+                                                <a class="item">10</a>
+                                                <a class="item">11</a>
+                                                <a class="item">12</a>
+                                                <a class="icon item">
+                                                    <i class="right arrow icon"></i>
+                                                </a>
+                                            </div>
+                                            <div class="pg-pagination-info">Showing <b>1</b> of 123</div>
+                                        </div>
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
-}
-<h3>We suggest the following:</h3>
-<ol class="round">
-    <li class="one">
-        <h5>Getting Started</h5>
-        ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-        enables a clean separation of concerns and that gives you full control over markup
-        for enjoyable, agile development. ASP.NET MVC includes many features that enable
-        fast, TDD-friendly development for creating sophisticated applications that use
-        the latest web standards.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245151">Learn more…</a>
-    </li>
-
-    <li class="two">
-        <h5>Add NuGet packages and jump-start your coding</h5>
-        NuGet makes it easy to install and update free libraries and tools.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245153">Learn more…</a>
-    </li>
-
-    <li class="three">
-        <h5>Find Web Hosting</h5>
-        You can easily find a web hosting company that offers the right mix of features
-        and price for your applications.
-        <a href="http://go.microsoft.com/fwlink/?LinkId=245157">Learn more…</a>
-    </li>
-</ol>
+    </div>
+</main>

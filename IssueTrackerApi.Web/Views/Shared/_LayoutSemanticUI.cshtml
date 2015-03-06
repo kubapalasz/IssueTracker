@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Issue Tracker</title>
+    <link href="~/semantic/dist/semantic.min.css" rel="stylesheet" />
+    <link href="~/Content/local/styles.css" rel="stylesheet"/>
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.tablesort.min.js"></script>
+    <script src="~/semantic/dist/semantic.min.js"></script>
+    <script src="~/Scripts/IssueTracker/issuetracker.js"></script>
+</head>
+<body>
+    <section class="page-header">
+        <div class="wrapper">
+            <div class="ui secondary menu">
+                <div class="left menu">
+                    <div class="item">
+                        <h1 class="ui header">Issue Tracker</h1>
+                    </div>
+
+                    <a class="active item">
+                        <i class="home icon"></i> Dashboard
+                    </a>
+
+                    <div class="ui pointing link dropdown item">
+                        <i class="wizard icon"></i>
+                        <i class="dropdown icon"></i>
+                        <span class="black text">Create</span>
+
+                        <div class="menu transition hidden">
+                            <a href="" class="item" data-modal-trigger="#IssueNewModal">New Issue</a>
+                            <a href="" class="item">New Project</a>
+                        </div>
+                    </div>
+
+                    <div class="ui pointing link dropdown item">
+                        <i class="unhide icon"></i>
+                        <i class="dropdown icon"></i>
+                        <span class="black text">View</span>
+
+                        <div class="menu transition hidden">
+                            <a href="" class="item"><i class="folder open outline icon"></i> All Projects</a>
+                            <a href="" class="item"><i class="users icon"></i> All Users</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="right menu">
+                    <div class="ui floating labeled icon link dropdown teal button">
+                        <i class="dropdown icon"></i>
+                        <span class="text">My Profile</span>
+                        <div class="menu">
+                            <a href="" class="item"><i class="edit icon"></i> Edit Profile</a>
+                            <a href="" class="item"><i class="lock icon"></i> Logout</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @RenderBody()
+
+    <div id="IssueNewModal" class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Create New Issue
+        </div>
+        <div class="content">
+            <div class="ui form">
+                <h4 class="ui dividing header">Details</h4>
+                <div class="field">
+                    <label for="IssueTitle">Title</label>
+                    <input type="text" id="IssueTitle" name="IssueTitle" placeholder="Title">
+                </div>
+                <div class="field">
+                    <label for="IssueDescription">Description</label>
+                    <textarea class="ui textarea" id="IssueDescription" name="IssueDescription"></textarea>
+                </div>
+                <div class="field">
+                    <label for="IssueDueDate">Due date</label>
+                    <div class="ui icon input">
+                        <input type="text" id="IssueDueDate" name="IssueDueDate" placeholder="Choose date">
+                        <i class="green calendar icon"></i>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Assigned to</label>
+                    <select class="ui dropdown">
+                        <option value="" selected>Select assignee</option>
+                        <option value="Joe Bloggs">Joe Bloggs</option>
+                        <option value="Mary Doe">Mary Doe</option>
+                        <option value="Jane Smith">Jane Smith</option>
+                        <option value="John Doe">John Doe</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="ui button">
+                Cancel
+            </button>
+            <div class="ui positive right labeled icon button">
+                Create
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <section class="page-footer">
+        <div class="wrapper">
+            <div class="ui page grid">
+                <div class="one column row">
+                    <div class="column">
+                        <footer>
+                            <p>
+                                &copy; 2015 <strong>IssueTracker</strong> &nbsp;|&nbsp; by
+                                <cite>&lt;TeamName&gt;</cite>
+                            </p>
+                        </footer>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
