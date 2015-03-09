@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Issue Tracker</title>
     <link href="~/semantic/dist/semantic.min.css" rel="stylesheet" />
-    <link href="~/Content/local/styles.css" rel="stylesheet"/>
+    <link href="~/Content/local/styles.css" rel="stylesheet" />
 
     <script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/jquery.tablesort.min.js"></script>
+    <script src="~/Scripts/jquery.serialize-object.js"></script>
     <script src="~/semantic/dist/semantic.min.js"></script>
     <script src="~/Scripts/IssueTracker/issuetracker.js"></script>
 </head>
@@ -31,7 +32,7 @@
 
                         <div class="menu transition hidden">
                             <a href="" class="item" data-modal-trigger="#IssueNewModal">New Issue</a>
-                            <a href="" class="item">New Project</a>
+                            <a href="" class="item" data-modal-trigger="#ProjectNewModal">New Project</a>
                         </div>
                     </div>
 
@@ -108,6 +109,55 @@
             </div>
         </div>
     </div>
+
+    <div id="ProjectNewModal" class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+            Create New Issue
+        </div>
+        <div class="content">
+            <div class="ui form">
+                <h4 class="ui dividing header">Details</h4>
+                <div class="field">
+                    <label for="ProjectName">Name</label>
+                    <input type="text" id="ProjectName" name="ProjectName" placeholder="Name">
+                </div>
+                <div class="field">
+                    <label for="ProjectDescription">Description</label>
+                    <textarea class="ui textarea" id="ProjectDescription" name="ProjectDescription"></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="ui button">
+                Cancel
+            </button>
+            <div class="ui positive right labeled icon button">
+                Create
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <section class="page-footer">
         <div class="wrapper">

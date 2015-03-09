@@ -26,4 +26,26 @@ $(document).ready(function () {
         $(modal).modal('show');
     });
 
+
+    /* Define API endpoints once globally */
+    $.fn.api.settings.api = {
+        'create project': 'http://localhost:8766/Project',
+    };
+
+    $('form .submit.button')
+      .api({
+          action: 'create project',
+          serializeForm: true,
+          beforeSend: function (settings) {
+              // form data is editable in before send
+              if (settings.data.username == '') {
+                  settings.data.username = 'New User';
+              }
+              // open console to inspect object
+              console.log(settings.data);
+              return settings;
+          }
+      });
+
+
 });
